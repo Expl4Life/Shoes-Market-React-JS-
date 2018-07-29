@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import BasketItem from './BasketItem';
 import shortId from 'shortid';
 
-console.log(shortId);
-
 class BasketItemList extends Component {
   render() {
     return (

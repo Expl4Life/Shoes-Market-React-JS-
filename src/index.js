@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './js/App';
 import './css/style.css';
-import {BrowserRouter} from 'react-router-dom'
+
+//libs
+// import "../node_modules/slick-carousel/slick/slick.css";
+// import "../node_modules/slick/slick-theme.css";
 
 ReactDOM.render((
-  <BrowserRouter>
-    <App/>
-  </BrowserRouter>
+  <App/>
 ),
 document.getElementById('root'));

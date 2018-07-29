@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import '../internal/Featured';
 import { NavLink } from 'react-router-dom';
+import Featured from "../internal/Featured";
 
 class MainPage extends Component {
   render() {
@@ -33,53 +35,7 @@ class MainPage extends Component {
           </div>
         </section>
 
-        <section className="new-deals wave-bottom">
-          <h2 className="h2">Новинки</h2>
-          <div className="new-deals__menu">
-            <ul className="new-deals__menu-items">
-              <li className="new-deals__menu-item new-deals__menu-item_active">
-                <a href="#">Женская обувь</a>
-              </li>
-              <li className="new-deals__menu-item">
-                <a href="#">Мужская обувь</a>
-              </li>
-              <li className="new-deals__menu-item">
-                <a href="#">Детская обувь</a>
-              </li>
-              <li className="new-deals__menu-item">
-                <a href="#">аксессуары</a>
-              </li>
-              <li className="new-deals__menu-item">
-                <a href="#">для дома</a>
-              </li>
-            </ul>
-          </div>
-          <div className="new-deals__slider">
-            <div className="new-deals__arrow new-deals__arrow_left arrow"></div>
-            <div className="new-deals__product new-deals__product_first">
-              <a href="#"></a>
-            </div>
-
-            <div className="new-deals__product new-deals__product_active">
-            <NavLink to="/products/1">
-            </NavLink>
-              <div className="new-deals__product_favorite"></div>
-            </div>
-            <div className="new-deals__product new-deals__product_last">
-              <a href="#"></a>
-            </div>
-            <div className="new-deals__arrow new-deals__arrow_right arrow"></div>
-          </div>
-          <div className="new-deals__product-info">
-            <NavLink to="/products/?id=1" className="h3">
-              Босоножки женские
-            </NavLink>
-            <p>Производитель:
-              <span> Damlax</span>
-            </p>
-            <h3 className="h3">5 950 ₽</h3>
-          </div>
-        </section>
+        <Featured {...this.props}/>
 
         <section className="sales-and-news wave-bottom">
           <h2 className="h2">акции и новости</h2>
