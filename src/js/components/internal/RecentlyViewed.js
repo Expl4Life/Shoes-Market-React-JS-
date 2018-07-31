@@ -24,8 +24,9 @@ class RecentlyViewed extends Component {
 
   render() {
     let {productList} = this.state;
+    console.log(productList);
 
-    if (!productList.length) {
+    if (!productList || !productList.length) {
       return null;
     }
 
@@ -34,7 +35,7 @@ class RecentlyViewed extends Component {
         <h3>Вы смотрели:</h3>
         <div className="overlooked-slider">
           {/*<div className="overlooked-slider__arrow overlooked-slider__arrow_left arrow"></div>*/}
-          {productList.slice(9).map((item) => {
+          {productList.map((item) => {
             return (
               <div key={item.id}>
                 <div className="overlooked-slider__item" style={{backgroundImage: `url(${item.images[0]})`}}>
