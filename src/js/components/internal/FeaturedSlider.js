@@ -5,7 +5,6 @@ import RESTapi from '../../RESTapi';
 
 function SampleNextArrow(props) {
   const {onClick } = props;
-  console.log(props);
   return (
     <div
       className={`new-deals__arrow new-deals__arrow_right slider__arrow arrow`}

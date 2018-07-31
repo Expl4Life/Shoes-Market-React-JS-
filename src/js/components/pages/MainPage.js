@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import '../internal/Featured';
-import { NavLink } from 'react-router-dom';
 import Featured from "../internal/Featured";
 
 class MainPage extends Component {

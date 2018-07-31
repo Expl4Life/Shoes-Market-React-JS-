@@ -84,6 +84,10 @@ h2.section-name {
 }
 
 .main-screen__favourite-product-pic img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 463px;
   position: relative;
   top: 23px;
   left: 14px;
@@ -403,13 +407,15 @@ li.active {
 
 .favourite-product-slider__arrow_down {
   background-position: -5px 9px;
-  bottom: -32px;
+  bottom: 0;
 }
 
 .favourite-product-slider__item {
   width: 142px;
   height: 128px;
   border: 1px solid #C4C4C4;
+  outline: none;
+  cursor: pointer;
 }
 
 .favourite-product-slider__item:hover {

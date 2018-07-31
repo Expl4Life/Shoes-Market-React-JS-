@@ -25,7 +25,7 @@ const RESTapi = {
   get: (query = '', queryStringParams = '') => {
     if(!query && typeof query !== 'string') {return false;}
 
-    query = RESTapi.getPathNames[query] ? RESTapi.getPathNames[query] : '';
+    query = RESTapi.getPathNames[query] ? RESTapi.getPathNames[query] : query;
 
     let endPoint = `${RESTapi.HOST}${query}`;
     endPoint += queryStringParams ? `?${queryStringParams}` : '';
