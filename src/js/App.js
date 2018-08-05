@@ -8,16 +8,23 @@ import ProductDetail from './components/pages/ProductDetail';
 import Order from './components/pages/Order';
 import RESTapi from './RESTapi';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-// import qs from 'qs';
-// // const {stringify, parse} = qs;
+import qs from 'qs';
+import getNoun from "./components/common/getNoun";
+const {stringify, parse} = qs;
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      categories: []
-    }
+      categories: [],
+      count: 0,
+      countText: 'товаров',
+      filter: {}
+    };
+
+    this.onChangeFilter = this.onChangeFilter.bind(this);
+    this.onCountChange = this.onCountChange.bind(this);
   }
 
   componentDidMount() {
@@ -31,15 +38,42 @@ class App extends Component {
       });
   }
 
+  onChangeFilter(newParams = {categoryId: 13}) {
+    if(typeof newParams !== 'object') {return;}
+
+    this.setState({filter: {...this.state.filter, ...newParams}});
+  }
+
+  onCountChange(count = 0) {
+    if(count !== this.state.count) {
+      this.setState({
+        count,
+        countText: getNoun(count, ['товар', 'товара', 'товаров'])
+      });
+    }
+  }
+
   render() {
     return (
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <div className="container">
-          <Header categories={this.state.categories}/>
+          <Header
+            categories={this.state.categories}
+            onChangeFilter={this.onChangeFilter}
+          />
           <Switch>
             <Route path='/products/:id' component={ProductDetail}/>
-            <Route path='/products/' component={Catalogue}/>
-            <Route path='/favorite/' component={Favorite}/>
+            <Route path='/products/' component={() =>
+              <Catalogue
+                onCountChange={this.onCountChange}
+                countText={this.state.countText}
+                filter={this.state.filter}/>}
+            />
+            <Route path='/favorite/' component={() =>
+              <Favorite
+                onCountChange={this.onCountChange}
+                countText={this.state.countText}/>}
+            />
             <Route path='/order/' component={Order}/>
             <Route exact path='/' component={() => <MainPage categories={this.state.categories}/>}/>
           </Switch>

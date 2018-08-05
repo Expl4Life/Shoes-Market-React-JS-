@@ -2,7 +2,20 @@ import React, {Component} from 'react';
 import Accordion from '../UI/Accordion';
 
 class FilterSidebar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      allFilters: {}
+    }
+  }
+
+  componentDidMount() {
+    
+  }
+
   render() {
+    console.log(this.props);
     return (
       <section className="sidebar">
         <Accordion title="Каталог">

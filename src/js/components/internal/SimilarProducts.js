@@ -1,61 +1,107 @@
 import React, {Component} from 'react';
+import Slider from "react-slick";
+import RESTapi from '../../RESTapi';
+import SimilarProductCard from './SimilarProductCard';
+import qs from 'qs';
+
+const {stringify, parse} = qs;
+
+function NextArrow(props) {
+  const {onClick} = props;
+  return (
+    <div
+      className={`similar-products-slider__arrow similar-products-slider__arrow_right arrow`}
+      onClick={onClick}
+    />
+  );
+}
+
+function PrevArrow(props) {
+  const {onClick} = props;
+  return (
+    <div
+      className={`similar-products-slider__arrow similar-products-slider__arrow_left arrow`}
+      onClick={onClick}
+    />
+  );
+}
 
 class SimilarProducts extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      products: [],
+    };
+
+    this.params = {
+      type: '',
+      color: ''
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let {product} = nextProps;
+
+    if (!product) {
+      return
+    }
+
+    this.params.type = product.type;
+    this.params.color = product.color;
+
+    let queryParams = stringify(this.params);
+    this.getProductList(queryParams);
+  }
+
+  getProductList(query = '') {
+    RESTapi.get('products', query)
+      .then((data) => {
+        console.log(data);
+        data && data.data && this.setState({
+          products: data.data
+        });
+      })
+  }
+
   render() {
+    let {products} = this.state;
+
+    let settingsSmallSlider = {
+      dots: false,
+      className: "",
+      arrows: true,
+      infinite: false,
+      speed: 200,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      focusOnSelect: true,
+      verticalSwiping: true,
+      nextArrow: <NextArrow/>,
+      prevArrow: <PrevArrow/>,
+      beforeChange: (prevIndex, nextIndex) => {
+        // console.log(nextIndex);
+      }
+    };
+
+    if (!products || !products.length) {
+      return null;
+    }
+
     return (
       <section className="product-card__similar-products-slider">
         <h3>Похожие товары:</h3>
-        <div className="similar-products-slider">
-          <div className="similar-products-slider__arrow similar-products-slider__arrow_left arrow"></div>
-          <div className="similar-products-slider__item-list__item-card item">
-            <div className="similar-products-slider__item">
-              <a href="product-card-desktop.html"><img
-                src="/img/product-card-pics/product-card__similar-products-slider-item-1.png"
-                className="similar-products-slider__item-pic-1" alt="Ботинки женские"/>
-              </a>
-            </div>
-            <div className="similar-products-slider__item-desc">
-              <h4 className="similar-products-slider__item-name">Ботинки женские</h4>
-              <p className="similar-products-slider__item-producer">Производитель: <span
-                className="producer">Norma J.Baker</span>
-              </p>
-              <p className="similar-products-slider__item-price">23 150</p>
-            </div>
-          </div>
-          <div className="similar-products-slider__item-list__item-card item">
-            <div className="similar-products-slider__item">
-              <a href="product-card-desktop.html"><img
-                src="/img/product-card-pics/product-card__similar-products-slider-item-2.png"
-                className="similar-products-slider__item-pic-2" alt="Полуботинки женские"/></a>
-            </div>
-            <div className="similar-products-slider__item-desc">
-              <h4 className="similar-products-slider__item-name">Полуботинки женские</h4>
-              <p className="similar-products-slider__item-producer">Производитель: <span
-                className="producer">Shoes Market</span>
-              </p>
-              <p className="similar-products-slider__item-price">4 670</p>
-            </div>
-          </div>
-          <div className="similar-products-slider__item-list__item-card item">
-            <div className="similar-products-slider__item">
-              <a href="product-card-desktop.html"><img
-                src="/img/product-card-pics/product-card__similar-products-slider-item-3.png"
-                className="similar-products-slider__item-pic-3" alt="Ботинки женские"/></a>
-            </div>
-            <div className="similar-products-slider__item-desc">
-              <h4 className="similar-products-slider__item-name">Ботинки женские</h4>
-              <p className="similar-products-slider__item-producer">Производитель: <span
-                className="producer">Menghi Shoes</span>
-              </p>
-              <p className="similar-products-slider__item-price">6 370</p>
-            </div>
-          </div>
-          <div className="similar-products-slider__arrow similar-products-slider__arrow_right arrow"></div>
-        </div>
+        <Slider
+          {...settingsSmallSlider}
+        >
+          {products.map((item) => <SimilarProductCard
+            key={item.id}
+            item={item}
+          />)}
+        </Slider>
       </section>
     );
   }
 }
 
 export default SimilarProducts;
-

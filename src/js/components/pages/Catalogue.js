@@ -3,30 +3,29 @@ import ProductsList from '../internal/ProductsList';
 import PagePagination from '../common/PagePagination';
 import FilterSidebar from '../filter/FilterSidebar';
 import RecentlyViewed from '../internal/RecentlyViewed';
+import Breadcrumbs from '../common/Breadcrumbs';
 import SortBy from '../internal/SortBy';
 
 class Catalogue extends Component {
   render() {
     return (
       <div>
-        <div className="site-path">
-          <ul className="site-path__items">
-            <li className="site-path__item"><a href="/">Главная</a></li>
-            <li className="site-path__item"><a href="#">Женская обувь</a></li>
-          </ul>
-        </div>
+        <Breadcrumbs/>
         <main className="product-catalogue">
-          <FilterSidebar/>
+          <FilterSidebar {...this.props.filter}/>
           <section className="product-catalogue-content">
             <section className="product-catalogue__head">
               <div className="product-catalogue__section-title">
                 <h2 className="section-name">Женская обувь</h2>
-                <span className="amount"> 1 764 товара</span>
+                <span className="amount"> {this.props.countText}</span>
               </div>
               <SortBy/>
             </section>
 
-            <ProductsList/>
+            <ProductsList
+              onCountChange={this.props.onCountChange}
+              params={this.props.filter}
+            />
 
             <PagePagination/>
           </section>

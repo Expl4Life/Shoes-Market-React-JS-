@@ -5,6 +5,8 @@ import Basket from "../internal/Basket";
 import RESTapi from '../../RESTapi';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
+import qs from 'qs';
+const {stringify, parse} = qs;
 
 let activeHeaderItemClass = 'main-menu__item_active';
 
@@ -21,6 +23,7 @@ class Header extends Component {
     this.toggleBasketOpen = this.toggleBasketOpen.bind(this);
     this.toggleSearchOpen = this.toggleSearchOpen.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
+    this.onCategoryChange = this.onCategoryChange.bind(this);
   }
 
   toggleBasketOpen() {
@@ -38,6 +41,10 @@ class Header extends Component {
   onSearchChange(e) {
     let value = e.currentTarget.value;
     console.log(`значение поиска ${value}`);
+  }
+
+  onCategoryChange(queryString) {
+    console.log(queryString);
   }
 
   render() {
@@ -137,7 +144,9 @@ class Header extends Component {
             <ul className="main-menu__items">
               <li className={`main-menu__item main-menu__item_sales ${search === '?discount' ? activeHeaderItemClass : ''}`}>
                 <NavLink
-                  exact to={`${RESTapi.getPathNames.products}?discount`}>
+                  exact to={`${RESTapi.getPathNames.products}?discount`}
+                  // onClick={() => {this.onCategoryChange('discount')}}
+                >
                   Акции
                 </NavLink>
               </li>
@@ -145,7 +154,10 @@ class Header extends Component {
               {categoriesLinks}
 
               <li className={`main-menu__item main-menu__item_sales ${search === '?featured' ? activeHeaderItemClass : ''}`}>
-                <NavLink exact to={`${RESTapi.getPathNames.products}?featured`}>
+                <NavLink
+                  exact to={`${RESTapi.getPathNames.products}?featured`}
+                  // onClick={() => {this.onCategoryChange('featured')}}
+                >
                   Новинки
                 </NavLink>
               </li>

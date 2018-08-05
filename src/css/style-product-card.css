@@ -528,6 +528,7 @@ li.active {
 }
 
 .product-card__similar-products-slider h3 {
+  margin-bottom: 50px;
   position: relative;
   top: 24px;
   font-family: Roboto;
@@ -551,8 +552,17 @@ li.active {
   position: absolute;
   height: 30px;
   width: 30px;
+  top: 50%;
   background-image: url(../img/slider_sprite.png);
   background-repeat: no-repeat;
+  z-index: 2;
+  pointer-events: all;
+  user-select: all;
+}
+
+.arrow_right {
+  right: 0;
+  transform: rotate(180deg);
 }
 
 .arrow:hover {
@@ -562,7 +572,7 @@ li.active {
 
 .similar-products-slider__arrow {
   position: absolute;
-  top: 130px;
+  top: 97px;
 }
 
 .similar-products-slider__arrow_left {
@@ -586,6 +596,15 @@ li.active {
   background-size: contain;
   overflow: hidden;
 }
+
+.similar-products-slider__item img {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  max-height: 230px;
+}
+
 
 .similar-products-slider__item:hover {
   opacity: 0.6;

@@ -15,23 +15,27 @@ class ProductDetail extends Component {
       product: null
     };
 
-    this.onClickItem = this.onClickItem.bind(this);
+    this.pathName = '';
   }
 
   componentDidMount() {
     this.getProduct();
   };
 
-  getProduct() {
-    let pathName = this.props.location && this.props.location.pathname;
+  componentWillReceiveProps(nextProps) {
+    let pathName = nextProps.location && nextProps.location.pathname;
+    if(pathName === this.pathName) {return null}
+
+    this.getProduct(pathName);
+  }
+
+  getProduct(pathName = this.props.location.pathname) {
+
     pathName && RESTapi.get(pathName)
       .then((data) => {
         data.data && this.setState({product: data.data});
+        this.pathName = pathName;
       });
-  }
-
-  onClickItem() {
-    this.getProduct();
   }
 
   render() {
@@ -39,8 +43,9 @@ class ProductDetail extends Component {
       <div>
         <Breadcrumbs/>
         <ProductBigCard product={this.state.product}/>
-        <RecentlyViewed onClick={this.onClickItem}/>
-        {/*<SimilarProducts/>*/}
+        <RecentlyViewed/>
+        <SimilarProducts product={this.state.product}
+        />
       </div>
     );
   }

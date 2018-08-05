@@ -16,12 +16,15 @@ class Favorite extends Component {
           <section className="product-catalogue__head product-catalogue__head_favorite">
             <div className="product-catalogue__section-title">
               <h2 className="section-name">В вашем избранном</h2>
-              <span className="amount amount_favorite"> 99 товаров</span>
+              <span className="amount amount_favorite">{this.props.countText}</span>
             </div>
             <SortBy/>
           </section>
 
-          <ProductsList/>
+          <ProductsList
+            onCountChange={this.props.onCountChange}
+            params={this.props.filter}
+          />
 
           <PagePagination/>
         </main>

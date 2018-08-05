@@ -134,6 +134,7 @@ select {
 .product-catalogue__item-list {
   display: flex;
   flex-wrap: wrap;
+  min-height: 1200px;
   justify-content: space-between;
   width: 892px;
   margin-left: 22px;
@@ -247,9 +248,14 @@ a.item-list__item-card {
 }
 
 .item-pic-1 {
-  position: relative;
-  top: 16px;
-  left: -1px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 .item-pic-2 {
@@ -1108,4 +1114,15 @@ width: 7px;
 
 ::-webkit-scrollbar{
 width: 7px;
+}
+
+.product-catalogue__placeholder {
+  font-size: 18px;
+  margin-top: 40px;
+  margin-left: 30px;
+  max-width: 700px;
+}
+
+.item-desc {
+  display: block;
 }

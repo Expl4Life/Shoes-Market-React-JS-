@@ -1,6 +1,27 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
+import Slider from "react-slick";
 import RESTapi from '../../RESTapi';
+
+function NextArrow(props) {
+  const {onClick} = props;
+  return (
+    <div
+      className={`similar-products-slider__arrow similar-products-slider__arrow_right arrow`}
+      onClick={onClick}
+    />
+  );
+}
+
+function PrevArrow(props) {
+  const {onClick} = props;
+  return (
+    <div
+      className={`similar-products-slider__arrow similar-products-slider__arrow_left arrow`}
+      onClick={onClick}
+    />
+  );
+}
 
 class RecentlyViewed extends Component {
   constructor(props) {
@@ -23,8 +44,21 @@ class RecentlyViewed extends Component {
   }
 
   render() {
+    let settingsSmallSlider = {
+      dots: false,
+      className: "overlooked-slider",
+      arrows: true,
+      infinite: false,
+      speed: 200,
+      slidesToShow: 5,
+      slidesToScroll: 1,
+      focusOnSelect: true,
+      verticalSwiping: false,
+      nextArrow: <NextArrow/>,
+      prevArrow: <PrevArrow/>,
+    };
+
     let {productList} = this.state;
-    console.log(productList);
 
     if (!productList || !productList.length) {
       return null;
@@ -33,49 +67,24 @@ class RecentlyViewed extends Component {
     return (
       <section className="product-catalogue__overlooked-slider">
         <h3>Вы смотрели:</h3>
-        <div className="overlooked-slider">
-          {/*<div className="overlooked-slider__arrow overlooked-slider__arrow_left arrow"></div>*/}
-          {productList.map((item) => {
+        <Slider
+          {...settingsSmallSlider}
+        >
+          {productList.slice(0, 9).map((item) => {
             return (
               <div key={item.id}>
                 <div className="overlooked-slider__item" style={{backgroundImage: `url(${item.images[0]})`}}>
                   <NavLink
                     to={`${RESTapi.getPathNames.products}${item.id}`}
-                    onClick={this.props.onClick}
                   />
                 </div>
               </div>
             )
-          })};
-          {/*<div className="overlooked-slider__arrow overlooked-slider__arrow_right arrow"></div>*/}
-        </div>
+          })}
+        </Slider>
       </section>
     );
   }
 }
 
 export default RecentlyViewed;
-
-//
-// <section className="product-catalogue__overlooked-slider">
-//   <h3>Вы смотрели:</h3>
-//   <div className="overlooked-slider">
-//     <div className="overlooked-slider__arrow overlooked-slider__arrow_left arrow"></div>
-//     <div className="overlooked-slider__item overlooked-slider__item-1">
-//       <a href="product-card-desktop.html"></a>
-//     </div>
-//     <div className="overlooked-slider__item overlooked-slider__item-2">
-//       <a href="product-card-desktop.html"></a>
-//     </div>
-//     <div className="overlooked-slider__item overlooked-slider__item-3">
-//       <a href="product-card-desktop.html"></a>
-//     </div>
-//     <div className="overlooked-slider__item overlooked-slider__item-4">
-//       <a href="product-card-desktop.html"></a>
-//     </div>
-//     <div className="overlooked-slider__item overlooked-slider__item-5">
-//       <a href="product-card-desktop.html"></a>
-//     </div>
-//     <div className="overlooked-slider__arrow overlooked-slider__arrow_right arrow"></div>
-//   </div>
-// </section>
