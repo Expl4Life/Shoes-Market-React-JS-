@@ -12,6 +12,8 @@ import qs from 'qs';
 import getNoun from "./components/common/getNoun";
 const {stringify, parse} = qs;
 
+console.log(stringify(parse('discount')));
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -38,10 +40,17 @@ class App extends Component {
       });
   }
 
-  onChangeFilter(newParams = {categoryId: 13}) {
-    if(typeof newParams !== 'object') {return;}
+  onChangeFilter(newParams = {}) {
+    if(typeof newParams === 'string') {
+      newParams = parse(newParams);
+    }
 
-    this.setState({filter: {...this.state.filter, ...newParams}});
+    let newFilter = {...this.state.filter, ...newParams};
+    console.log(newFilter);
+    //
+    // setTimeout(() => {
+    //   console.log(this.state);
+    // }, 20)
   }
 
   onCountChange(count = 0) {
@@ -67,7 +76,8 @@ class App extends Component {
               <Catalogue
                 onCountChange={this.onCountChange}
                 countText={this.state.countText}
-                filter={this.state.filter}/>}
+                onChangeFilter={this.onChangeFilter}
+              />}
             />
             <Route path='/favorite/' component={() =>
               <Favorite

@@ -12,7 +12,7 @@ class Catalogue extends Component {
       <div>
         <Breadcrumbs/>
         <main className="product-catalogue">
-          <FilterSidebar {...this.props.filter}/>
+          <FilterSidebar {...this.props}/>
           <section className="product-catalogue-content">
             <section className="product-catalogue__head">
               <div className="product-catalogue__section-title">
@@ -23,9 +23,7 @@ class Catalogue extends Component {
             </section>
 
             <ProductsList
-              onCountChange={this.props.onCountChange}
-              params={this.props.filter}
-            />
+              onCountChange={this.props.onCountChange}/>
 
             <PagePagination/>
           </section>

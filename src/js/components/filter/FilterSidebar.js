@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Accordion from '../UI/Accordion';
+import RangeFilter from './filter-items/RangeFilter';
+import RESTapi from '../../RESTapi';
 
 class FilterSidebar extends Component {
   constructor(props) {
@@ -7,11 +9,27 @@ class FilterSidebar extends Component {
 
     this.state = {
       allFilters: {}
-    }
+    };
+
+    this.onPriceChange = this.onPriceChange.bind(this);
   }
 
   componentDidMount() {
-    
+    this.getAllFilters();
+  }
+
+  getAllFilters() {
+    RESTapi.get('filters')
+      .then((data) => {
+        data.data && this.setState({allFilters: data.data});
+      });
+  }
+
+  onPriceChange({min, max}) {
+    this.props.onChangeFilter && this.props.onChangeFilter({
+      minPrice: min,
+      maxPrice: max
+    });
   }
 
   render() {
@@ -33,19 +51,7 @@ class FilterSidebar extends Component {
         </Accordion>
         <div className="separator-150 separator-150-1"></div>
         <Accordion title="Цена">
-          <div className="price-slider">
-            <div className="circle-container">
-              <div className="circle-1"></div>
-              <div className="line-white"></div>
-              <div className="line-colored"></div>
-              <div className="circle-2"></div>
-            </div>
-            <div className="counter">
-              <input type="text" className="input-1" defaultValue="1000"/>
-              <div className="input-separator"></div>
-              <input type="text" className="input-2" defaultValue="30 000"/>
-            </div>
-          </div>
+          <RangeFilter onChange={this.onPriceChange}/>
         </Accordion>
         <div className="separator-150 separator-150-2"></div>
         <Accordion title="Цвет">

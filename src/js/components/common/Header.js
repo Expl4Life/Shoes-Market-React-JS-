@@ -145,7 +145,7 @@ class Header extends Component {
               <li className={`main-menu__item main-menu__item_sales ${search === '?discount' ? activeHeaderItemClass : ''}`}>
                 <NavLink
                   exact to={`${RESTapi.getPathNames.products}?discount`}
-                  // onClick={() => {this.onCategoryChange('discount')}}
+                  onClick={() => {this.props.onChangeFilter('discount')}}
                 >
                   Акции
                 </NavLink>
@@ -156,7 +156,7 @@ class Header extends Component {
               <li className={`main-menu__item main-menu__item_sales ${search === '?featured' ? activeHeaderItemClass : ''}`}>
                 <NavLink
                   exact to={`${RESTapi.getPathNames.products}?featured`}
-                  // onClick={() => {this.onCategoryChange('featured')}}
+                  onClick={() => {this.props.onChangeFilter('featured')}}
                 >
                   Новинки
                 </NavLink>

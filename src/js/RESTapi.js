@@ -6,6 +6,7 @@ const RESTapi = {
     categories: '/categories/',
     products: '/products/',
     featured: '/featured/',
+    filters: '/filters/',
     cart: '/cart/'
   },
 

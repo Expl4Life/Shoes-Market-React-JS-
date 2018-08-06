@@ -23,9 +23,9 @@ class ProductsList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     let search = nextProps.location.search;
     if(search !== this.searrchQuery) {
+      console.log('prodList with new search');
        this.getProducts(search.replace('?', ''));
        this.searrchQuery = search;
     }
